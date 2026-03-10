@@ -1,18 +1,23 @@
 # **TDD Specification: DLP-Compliant Multi-Agent PM System**
 
-This document outlines the Test-Driven Development (TDD) framework for the "Enterprise PM Orchestrator" built in Copilot Studio. Since this system relies on embedded knowledge rather than file uploads, these tests focus on **Instruction Compliance**, **Routing Accuracy**, and **Action Safety**.
+This document outlines the Test-Driven Development (TDD) framework for the "Enterprise PM Orchestrator" built in Copilot Studio. Since this system relies on embedded knowledge rather than file uploads, these tests focus on **Instruction Compliance**, **Topic Routing Accuracy**, and **Action Safety**.
 
 ## **1\. Core Logic & Routing Tests (Orchestrator)**
 
-The Orchestrator acts as the "Director." Tests here ensure the Generative Orchestration correctly identifies which Sub-Agent to call.
+The Orchestrator uses explicit Topic-based routing (not generative) to match user queries to handlers.
 
-| Test ID | Input Prompt | Expected Routing/Output | Success Criteria |
-| :---- | :---- | :---- | :---- |
-| **ORCH-01** | "What tasks are overdue?" | Delegate to **Task Specialist**. | Correct sub-agent invoked; Planner List tasks action triggered. |
-| **ORCH-02** | "Check for vendor emails." | Delegate to **Comms Specialist**. | Outlook Get emails (V3) triggered with vendor filters. |
-| **ORCH-03** | "What is the budget policy?" | Handle via **Risk Specialist** or Orchestrator Prompt. | Recites the specific escalation matrix ($1k/$5k thresholds). |
-| **ORCH-04** | "Email the team and update my Planner." | **Sequential Delegation**. | Calls Comms Specialist first, then Task Specialist. |
-| **ORCH-05** | "Upload this PDF budget report." | **Refusal & SOP Recital**. | System declines file upload; explains DLP constraint. |
+| Test ID | Input Prompt | Expected Topic | Handler | Success Criteria |
+| :---- | :---- | :---- | :---- | :---- |
+| **ORCH-01** | "What tasks are overdue?" | Task_Management | Task Specialist | Topic matches; Planner List tasks action triggered. |
+| **ORCH-02** | "Check for vendor emails." | Communications | Comms Specialist | Topic matches; Outlook Get emails (V3) triggered. |
+| **ORCH-03** | "What is the budget policy?" | Governance | **Direct Answer** | Topic matches; recites escalation matrix ($1k/$5k). |
+| **ORCH-04** | "What are Gate 2 requirements?" | PGOF_Stages | **Direct Answer** | Topic matches; lists Stage 2 requirements. |
+| **ORCH-05** | "How do I onboard a contractor?" | Contractor_Onboarding | **Direct Answer** | Topic matches; recites 4-step process. |
+| **ORCH-06** | "Run morning brief" | Morning_Brief | Orchestrator + Specialists | Topic matches; sequential calls to Task + Risk specialists. |
+| **ORCH-07** | "Email the team and update my Planner." | Communications + Task_Management | Sequential | Topic 1 triggers Comms Specialist; Topic 2 triggers Task Specialist. |
+| **ORCH-08** | "Upload this PDF budget report." | N/A | **Refusal** | No Topic matches; system declines with fallback message. |
+| **ORCH-09** | "What is the stale task policy?" | Task_Management | **Direct Answer** | Topic matches; explains 5-day rule without calling sub-agent. |
+| **ORCH-10** | "Tell me about SIGMA" | Financial_Tools | **Direct Answer** | Topic matches; explains SIGMA purpose. |
 
 ## **2\. SOP Compliance Tests (Sub-Agents)**
 
@@ -71,7 +76,10 @@ Testing the "Morning Brief" and "Adaptive Card" interactions as described in Par
 
 ## **5\. Deployment Readiness Checklist**
 
-* \[ \] **Instruction Length:** Are SOP prompts under the 8k character limit per agent?  
-* \[ \] **Connector Auth:** Are all connectors set to "User Authentication" (not Service Account)?  
-* \[ \] **Orchestration Mode:** Is the Orchestrator set to "Generative"?  
-* \[ \] **Topic Overrides:** Do manual Topics (like "Budget SOP") have higher priority than the LLM search?
+* [x] **Instruction Length:** Are SOP prompts under the 8k character limit per agent?  
+* [x] **Connector Auth:** Are all connectors set to "User Authentication" (not Service Account)?  
+* [x] **Orchestration Mode:** Is the Orchestrator set to **"Standard" (Topic-based)** - not "Generative"?  
+* [x] **Topic Configuration:** Are all 12 Topics configured with trigger phrases?  
+* [x] **Topic Priority:** Is Topic priority order configured in Copilot Studio?  
+* [x] **Direct Answers:** Is all embedded knowledge included in Orchestrator system prompt?  
+* [x] **Fallback:** Is fallback handling configured for unrecognized queries?

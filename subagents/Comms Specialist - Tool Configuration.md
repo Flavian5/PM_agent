@@ -7,9 +7,19 @@
 
 ### Actions to Enable
 
-#### 1. Get emails (V3)
+#### 1. Get messages (FIND/RESOURCE DISCOVERY)
+- **Copilot Studio Action Name**: `Get messages` (under Office 365 Outlook connector)
+- **Purpose**: Find/recent emails in the user's mailbox
+- **When to use**: When user doesn't specify filters, or to list recent emails
+- **Parameters needed**:
+  - `Folder` (usually "Inbox")
+  - `Top` (number of emails to return, default 50)
+  - `Skip` (optional - for pagination)
+- **Safety level**: Read-only (no confirmation required)
+
+#### 2. Get emails (V3)
 - **Copilot Studio Action Name**: `Get emails (V3)` (under Office 365 Outlook connector)
-- **Purpose**: Fetch recent emails from vendor domains
+- **Purpose**: Fetch recent emails from vendor domains with filtering
 - **When to use**: 
   - User asks "Check for vendor updates"
   - User asks to review recent communications
@@ -27,7 +37,15 @@ from/emailAddress/address eq 'vendor@domain.com'
 ```
 Or use `Search` parameter for keyword searches.
 
-#### 2. Send an email (V2)
+#### 3. Get message (RESOURCE DETAIL)
+- **Copilot Studio Action Name**: `Get message` (under Office 365 Outlook connector)
+- **Purpose**: Get full details of a specific email
+- **When to use**: When user wants to read full email content
+- **Parameters needed**:
+  - `Id` (the message ID)
+- **Safety level**: Read-only (no confirmation required)
+
+#### 4. Send an email (V2)
 - **Copilot Studio Action Name**: `Send an email (V2)` (under Office 365 Outlook connector)
 - **Purpose**: Send stakeholder reports, Friday Wrap-Up, notifications
 - **When to use**: 

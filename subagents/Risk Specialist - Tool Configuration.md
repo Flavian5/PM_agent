@@ -7,7 +7,40 @@
 
 ### Actions to Enable
 
-#### 1. Get messages
+#### 1. List teams (FIND/RESOURCE DISCOVERY)
+- **Copilot Studio Action Name**: `List teams` (under Microsoft Teams connector)
+- **Purpose**: Find Teams the user is a member of
+- **When to use**: When user doesn't specify a team, or needs to choose which team
+- **Parameters needed**:
+  - (none required - uses authenticated user's context)
+- **Safety level**: Read-only (no confirmation required)
+
+#### 2. Get team (RESOURCE DETAIL)
+- **Copilot Studio Action Name**: `Get team` (under Microsoft Teams connector)
+- **Purpose**: Get details of a specific team
+- **When to use**: When user selects a team
+- **Parameters needed**:
+  - `TeamId` (the Teams team ID)
+- **Safety level**: Read-only (no confirmation required)
+
+#### 3. List channels (FIND/RESOURCE DISCOVERY)
+- **Copilot Studio Action Name**: `List channels` (under Microsoft Teams connector)
+- **Purpose**: Find channels within a specific team
+- **When to use**: When user wants to select a channel for scanning or posting
+- **Parameters needed**:
+  - `TeamId` (the Teams team ID)
+- **Safety level**: Read-only (no confirmation required)
+
+#### 4. Get channel (RESOURCE DETAIL)
+- **Copilot Studio Action Name**: `Get channel` (under Microsoft Teams connector)
+- **Purpose**: Get details of a specific channel
+- **When to use**: When user selects a channel
+- **Parameters needed**:
+  - `TeamId` (the Teams team ID)
+  - `ChannelId` (the Teams channel ID)
+- **Safety level**: Read-only (no confirmation required)
+
+#### 5. Get messages
 - **Copilot Studio Action Name**: `Get messages` (under Microsoft Teams connector)
 - **Purpose**: Scan project channel for keywords like "blocked" or "help"
 - **When to use**: 
@@ -23,7 +56,7 @@
 
 **Note**: To search for specific keywords, you can use the `Filter` parameter or process results after retrieval.
 
-#### 2. Post message in a chat or channel
+#### 6. Post message in a chat or channel
 - **Copilot Studio Action Name**: `Post message in a chat or channel` (under Microsoft Teams connector)
 - **Purpose**: Post risk alerts, governance notifications, project updates
 - **When to use**: 

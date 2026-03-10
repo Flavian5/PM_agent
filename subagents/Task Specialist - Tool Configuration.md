@@ -7,7 +7,31 @@
 
 ### Actions to Enable
 
-#### 1. List tasks
+#### 1. List plans (FIND/RESOURCE DISCOVERY)
+- **Copilot Studio Action Name**: `List plans` (under Microsoft Planner connector)
+- **Purpose**: Find available Planner plans the user has access to
+- **When to use**: When user doesn't specify a plan, or needs to choose which plan
+- **Parameters needed**:
+  - (none required - uses authenticated user's context)
+- **Safety level**: Read-only (no confirmation required)
+
+#### 2. Get plan (RESOURCE DETAIL)
+- **Copilot Studio Action Name**: `Get plan` (under Microsoft Planner connector)
+- **Purpose**: Get details of a specific plan including buckets and tasks
+- **When to use**: When user selects a specific plan
+- **Parameters needed**:
+  - `PlanId` (the Planner plan ID)
+- **Safety level**: Read-only (no confirmation required)
+
+#### 3. List buckets (FIND/RESOURCE DISCOVERY)
+- **Copilot Studio Action Name**: `List buckets` (under Microsoft Planner connector)
+- **Purpose**: Find buckets within a specific plan
+- **When to use**: When user wants to filter tasks by bucket
+- **Parameters needed**:
+  - `PlanId` (the Planner plan ID)
+- **Safety level**: Read-only (no confirmation required)
+
+#### 4. List tasks
 - **Copilot Studio Action Name**: `List tasks` (under Microsoft Planner connector)
 - **Purpose**: Fetch current task board state
 - **When to use**: Every time user asks for task status, overdue items, or general overview
@@ -17,7 +41,15 @@
   - `Top` (number of tasks to return, default 100)
 - **Safety level**: Read-only (no confirmation required)
 
-#### 2. Update a task V2
+#### 5. Get task (RESOURCE DETAIL)
+- **Copilot Studio Action Name**: `Get task` (under Microsoft Planner connector)
+- **Purpose**: Get details of a specific task
+- **When to use**: When user wants to see full task details
+- **Parameters needed**:
+  - `TaskId` (the Planner task ID)
+- **Safety level**: Read-only (no confirmation required)
+
+#### 6. Update a task V2
 - **Copilot Studio Action Name**: `Update a task V2` (under Microsoft Planner connector)
 - **Purpose**: Modify task status, due date, title, or assignment
 - **When to use**: 
