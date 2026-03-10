@@ -1,33 +1,46 @@
-# Vendor & Communications Specialist - Tool Configuration
+# Comms Specialist - Tool Configuration
 
-## Connector: Office 365 Outlook
+## Copilot Studio Connector: Office 365 Outlook
+
+### Exact Connector Name
+**Office 365 Outlook** (not to be confused with "Outlook.com" or other email connectors)
 
 ### Actions to Enable
 
 #### 1. Get emails (V3)
+- **Copilot Studio Action Name**: `Get emails (V3)` (under Office 365 Outlook connector)
 - **Purpose**: Fetch recent emails from vendor domains
 - **When to use**: 
   - User asks "Check for vendor updates"
   - User asks to review recent communications
   - Morning Brief flow - vendor email check
 - **Parameters needed**:
-  - Folder (usually Inbox)
-  - Filter for sender domains (vendor domains)
-  - Date range (last 7 days default)
-  - Unread only option
+  - `Folder` (usually "Inbox")
+  - `Filter` (optional - OData filter for sender address)
+  - `Top` (number of emails to return, default 50)
+  - `Skip` (optional - for pagination)
 - **Safety level**: Read-only (no confirmation required)
 
+**Note**: To filter by vendor domains, use the `Filter` parameter with OData syntax:
+```
+from/emailAddress/address eq 'vendor@domain.com'
+```
+Or use `Search` parameter for keyword searches.
+
 #### 2. Send an email (V2)
+- **Copilot Studio Action Name**: `Send an email (V2)` (under Office 365 Outlook connector)
 - **Purpose**: Send stakeholder reports, Friday Wrap-Up, notifications
 - **When to use**: 
   - User confirms sending Friday Wrap-Up
   - User confirms sending stakeholder update
   - User confirms sending notification
 - **Parameters needed**:
-  - To recipients
-  - Subject line
-  - Body content
-  - Attachments (if any)
+  - `To` (recipient email addresses, semicolon separated)
+  - `Subject` (email subject line)
+  - `Body` (email body content - HTML or plain text)
+  - `CC` (optional - carbon copy recipients)
+  - `BCC` (optional - blind carbon copy recipients)
+  - `Attachments` (optional - file attachments)
 - **Safety level**: CONSEQUENTIAL - Requires user confirmation
 
 ---
@@ -44,10 +57,10 @@ The following actions MUST be marked as "Require user confirmation" in Copilot S
 
 ### Recommended Settings
 
-| Action | isConsequential | Require Confirmation |
-|--------|-----------------|---------------------|
-| Get emails (V3) | false | No |
-| Send an email (V2) | true | Yes (always) |
+| Action | Connector | isConsequential | Require Confirmation |
+|--------|-----------|-----------------|---------------------|
+| Get emails (V3) | Office 365 Outlook | false | No |
+| Send an email (V2) | Office 365 Outlook | true | Yes (always) |
 
 ---
 
@@ -58,9 +71,9 @@ The following actions MUST be marked as "Require user confirmation" in Copilot S
 1. **User** types: "Check for vendor updates"
 2. **Orchestrator** delegates to Comms Specialist
 3. **Comms Specialist** executes "Get emails (V3)" with filters:
-   - Unread messages
-   - Vendor domains (configurable)
-   - Last 7 days
+   - Folder: Inbox
+   - Filter: Vendor domain(s) - configure specific domains per project
+   - Top: 50 (or as needed)
 4. **Comms Specialist** scans for keywords:
    - delayed, invoice, shipped, blocked, issue, ETA
 5. **Comms Specialist** returns summarized updates (max 3 bullets each)

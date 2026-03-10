@@ -1,4 +1,4 @@
-# Task & Schedule Specialist - Output Format Guidelines
+# Task Specialist - Output Format Guidelines
 
 ## Response Structure
 

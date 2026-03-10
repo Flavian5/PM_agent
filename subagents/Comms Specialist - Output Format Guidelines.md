@@ -1,4 +1,4 @@
-# Vendor & Communications Specialist - Output Format Guidelines
+# Comms Specialist - Output Format Guidelines
 
 ## Response Structure
 
@@ -150,75 +150,6 @@ completed: Solution Integration Document signed off.
       "title": "Add to Tasks",
       "verb": "addToPlanner",
       "data": {"action": "createTask"}
-    }
-  ]
-}
-```
-
----
-
-## Adaptive Card Format (Friday Wrap-Up Preview)
-
-```json
-{
-  "type": "AdaptiveCard",
-  "body": [
-    {
-      "type": "TextBlock",
-      "text": "📊 Friday Wrap-Up Preview",
-      "weight": "bolder",
-      "size": "medium"
-    },
-    {
-      "type": "Input.Text",
-      "id": "executiveSummary",
-      "value": "Project Alpha remains on track for Phase 2 delivery...",
-      "isMultiline": true,
-      "label": "Executive Summary"
-    },
-    {
-      "type": "Input.Text",
-      "id": "completedMilestones",
-      "value": "• SID approved\n• UAT environment configured\n• Security Assessment completed",
-      "isMultiline": true,
-      "label": "Completed Milestones"
-    },
-    {
-      "type": "Input.Text",
-      "id": "blockers",
-      "value": "• IT provisioning ticket pending\n• Hardware delivery delayed",
-      "isMultiline": true,
-      "label": "Current Blockers"
-    },
-    {
-      "type": "Input.Text",
-      "id": "nextWeek",
-      "value": "• Begin UAT\n• Complete contractor onboarding\n• Finalize deployment checklist",
-      "isMultiline": true,
-      "label": "Next Week's Focus"
-    },
-    {
-      "type": "ActionSet",
-      "actions": [
-        {
-          "type": "Action.ToggleVisibility",
-          "title": "Include Next Week's Goals",
-          "targetElements": ["nextWeek"]
-        },
-        {
-          "type": "Action.ToggleVisibility",
-          "title": "Highlight Risks",
-          "targetElements": ["blockers"]
-        }
-      ]
-    }
-  ],
-  "actions": [
-    {
-      "type": "Action.Execute",
-      "title": "📧 Send Update to Stakeholders",
-      "verb": "sendEmail",
-      "data": {"action": "sendFridayWrapUp"}
     }
   ]
 }

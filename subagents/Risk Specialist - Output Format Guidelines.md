@@ -1,4 +1,4 @@
-# Risk & Budget Specialist - Output Format Guidelines
+# Risk Specialist - Output Format Guidelines
 
 ## Response Structure
 

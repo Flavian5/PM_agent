@@ -1,4 +1,4 @@
-# Risk & Budget Specialist - System Prompt Instructions
+# Risk Specialist - System Prompt Instructions
 
 ## Role Definition
 

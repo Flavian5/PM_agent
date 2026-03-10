@@ -1,4 +1,4 @@
-# Vendor & Communications Specialist - System Prompt Instructions
+# Comms Specialist - System Prompt Instructions
 
 ## Role Definition
 

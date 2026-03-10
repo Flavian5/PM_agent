@@ -1,18 +1,24 @@
-# Task & Schedule Specialist - Tool Configuration
+# Task Specialist - Tool Configuration
 
-## Connector: Microsoft Planner
+## Copilot Studio Connector: Microsoft Planner
+
+### Exact Connector Name
+**Microsoft Planner** (not to be confused with other planning tools)
 
 ### Actions to Enable
 
 #### 1. List tasks
+- **Copilot Studio Action Name**: `List tasks` (under Microsoft Planner connector)
 - **Purpose**: Fetch current task board state
 - **When to use**: Every time user asks for task status, overdue items, or general overview
 - **Parameters needed**:
-  - Planner bucket ID (or list all buckets)
-  - Task states (active, completed, all)
+  - `PlanId` (the Planner plan ID)
+  - `BucketId` (optional - specific bucket)
+  - `Top` (number of tasks to return, default 100)
 - **Safety level**: Read-only (no confirmation required)
 
 #### 2. Update a task V2
+- **Copilot Studio Action Name**: `Update a task V2` (under Microsoft Planner connector)
 - **Purpose**: Modify task status, due date, title, or assignment
 - **When to use**: 
   - Mark task as completed
@@ -20,8 +26,12 @@
   - Reassign task
   - Cancel task (add "CANCELED" to title)
 - **Parameters needed**:
-  - Task ID
-  - Field to update (title, due date, percent complete, assigned to, bucket ID)
+  - `TaskId` (the Planner task ID)
+  - `Title` (optional - new title)
+  - `DueDateTime` (optional - new due date)
+  - `PercentComplete` (optional - 0-100)
+  - `AssignedTo` (optional - user ID)
+  - `BucketId` (optional - move to different bucket)
 - **Safety level**: CONSEQUENTIAL - Requires user confirmation
 
 ---
@@ -37,10 +47,10 @@ The following actions MUST be marked as "Require user confirmation" in Copilot S
 
 ### Recommended Settings
 
-| Action | isConsequential | Require Confirmation |
-|--------|-----------------|---------------------|
-| List tasks | false | No |
-| Update a task V2 | true | Yes (always) |
+| Action | Connector | isConsequential | Require Confirmation |
+|--------|-----------|-----------------|---------------------|
+| List tasks | Microsoft Planner | false | No |
+| Update a task V2 | Microsoft Planner | true | Yes (always) |
 
 ---
 
@@ -60,10 +70,10 @@ The following actions MUST be marked as "Require user confirmation" in Copilot S
 
 ### Action Button Mapping
 
-| Button | Action | Tool |
-|--------|--------|------|
-| Ping Assignee | Post message to assignee in Teams | Teams: Post message in a chat or channel |
-| Reschedule for Tomorrow | Update task due date | Planner: Update a task V2 |
+| Button | Action | Connector | Tool |
+|--------|--------|-----------|------|
+| Ping Assignee | Post message to assignee in Teams | Microsoft Teams | Post message in a chat or channel |
+| Reschedule for Tomorrow | Update task due date | Microsoft Planner | Update a task V2 |
 
 ---
 
@@ -72,12 +82,12 @@ The following actions MUST be marked as "Require user confirmation" in Copilot S
 ### Common Errors
 
 1. **No tasks found**
-   - Cause: Empty Planner bucket or wrong bucket ID
-   - Response: "No tasks found in the specified Planner bucket. Please verify the bucket ID or check if tasks have been created."
+   - Cause: Empty Planner bucket or wrong Plan ID
+   - Response: "No tasks found in the specified Planner bucket. Please verify the Plan ID or check if tasks have been created."
 
 2. **Access denied**
-   - Cause: User not member of Planner board
-   - Response: "Unable to access Planner. Please ensure you are a member of the project board."
+   - Cause: User not member of Planner plan
+   - Response: "Unable to access Planner. Please ensure you are a member of the project plan."
 
 3. **Update failed**
    - Cause: Invalid task ID or insufficient permissions

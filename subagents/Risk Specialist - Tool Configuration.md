@@ -1,32 +1,40 @@
-# Risk & Budget Specialist - Tool Configuration
+# Risk Specialist - Tool Configuration
 
-## Connector: Microsoft Teams
+## Copilot Studio Connector: Microsoft Teams
+
+### Exact Connector Name
+**Microsoft Teams** (not to be confused with "Teams for Business" or other variants)
 
 ### Actions to Enable
 
 #### 1. Get messages
+- **Copilot Studio Action Name**: `Get messages` (under Microsoft Teams connector)
 - **Purpose**: Scan project channel for keywords like "blocked" or "help"
 - **When to use**: 
   - Morning Brief flow - scan for blockers
   - User asks about project channel activity
   - Identify active risks and issues
 - **Parameters needed**:
-  - Team ID
-  - Channel ID
-  - Date range (last 7 days default)
-  - Message count limit
+  - `TeamId` (the Teams team ID)
+  - `ChannelId` (the Teams channel ID)
+  - `Top` (number of messages to return, default 50)
+  - `Skip` (optional - for pagination)
 - **Safety level**: Read-only (no confirmation required)
 
+**Note**: To search for specific keywords, you can use the `Filter` parameter or process results after retrieval.
+
 #### 2. Post message in a chat or channel
+- **Copilot Studio Action Name**: `Post message in a chat or channel` (under Microsoft Teams connector)
 - **Purpose**: Post risk alerts, governance notifications, project updates
 - **When to use**: 
   - High Impact + High Probability risk identified
   - User confirms posting risk alert
   - Governance notification required
 - **Parameters needed**:
-  - Team ID
-  - Channel ID (or chat ID)
-  - Message content
+  - `ChatId` OR `ChannelId` (where to post)
+  - `TeamId` (required for channel posts)
+  - `Message` (message content - can be HTML or plain text)
+  - `Subject` (optional - for channel posts)
 - **Safety level**: CONSEQUENTIAL - Requires user confirmation
 
 ---
@@ -43,10 +51,10 @@ The following actions MUST be marked as "Require user confirmation" in Copilot S
 
 ### Recommended Settings
 
-| Action | isConsequential | Require Confirmation |
-|--------|-----------------|---------------------|
-| Get messages | false | No |
-| Post message in a chat or channel | true | Yes (always) |
+| Action | Connector | isConsequential | Require Confirmation |
+|--------|-----------|-----------------|---------------------|
+| Get messages | Microsoft Teams | false | No |
+| Post message in a chat or channel | Microsoft Teams | true | Yes (always) |
 
 ---
 
@@ -55,7 +63,10 @@ The following actions MUST be marked as "Require user confirmation" in Copilot S
 ### Flow 1: Morning Brief (Teams Scan)
 
 1. **Orchestrator** calls Risk Specialist
-2. **Risk Specialist** executes "Get messages" to scan project channel
+2. **Risk Specialist** executes "Get messages" to scan project channel:
+   - TeamId: [project team ID]
+   - ChannelId: [project channel ID]
+   - Top: 50 (or as needed)
 3. **Risk Specialist** searches for keywords:
    - "blocked"
    - "help"
@@ -77,7 +88,10 @@ The following actions MUST be marked as "Require user confirmation" in Copilot S
 3. **If High Impact + High Probability**:
    - Risk Specialist asks: *"Shall I post a risk alert to the Teams channel?"*
    - User confirms
-   - Risk Specialist executes "Post message in a chat or channel"
+   - Risk Specialist executes "Post message in a chat or channel" with:
+     - TeamId: [project team ID]
+     - ChannelId: [project channel ID]
+     - Message: Risk alert content
 4. **If not High/High**:
    - Risk Specialist provides guidance on mitigation
 
@@ -120,8 +134,8 @@ The following actions MUST be marked as "Require user confirmation" in Copilot S
 ### Common Errors
 
 1. **No messages found**
-   - Cause: Empty channel or wrong channel ID
-   - Response: "No recent messages found in the project channel. The channel may be empty or the channel ID may be incorrect."
+   - Cause: Empty channel or wrong Team/Channel ID
+   - Response: "No recent messages found in the project channel. The channel may be empty or the Team/Channel ID may be incorrect."
 
 2. **Access denied**
    - Cause: Not member of team/channel
