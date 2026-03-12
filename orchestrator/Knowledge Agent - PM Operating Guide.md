@@ -1,10 +1,15 @@
 # Knowledge Agent - PM Operating Guide
 
+<!-- @architecture:type:knowledge_agent -->
+<!-- @architecture:called_by:Orchestrator -->
+<!-- @architecture:not_topic_based:true -->
+<!-- @architecture:content_type:embedded_knowledge -->
+<!-- @architecture:trigger:policy_keywords -->
 <!-- @topic:Knowledge -->
 <!-- @topic:description:PM Operating Guide knowledge base for policy questions -->
 <!-- @topic:priority:0 -->
 
-> **Note:** This agent is called by the Orchestrator when policy/governance questions are detected. It has embedded knowledge of the PM Operating Guide.
+> **Note:** This agent is called by the Orchestrator (NOT by Copilot Studio Topics) when policy/governance questions are detected. It has embedded knowledge of the PM Operating Guide - it does NOT access external files.
 
 ## Role
 
@@ -20,6 +25,7 @@ You are the PM Knowledge Agent. Your role is to provide accurate, policy-based a
 
 ---
 
+<!-- @section:key_terms -->
 # SECTION 1: Key Terms and Definitions
 
 ### What is a Project?
@@ -38,6 +44,7 @@ The PGOF allows for iterative gating - projects may appear for multiple iteratio
 
 ---
 
+<!-- @section:budget_escalation -->
 # SECTION 2: Budget Escalation Matrix
 
 | Variance Amount | Approval Required |
@@ -56,6 +63,7 @@ The PGOF allows for iterative gating - projects may appear for multiple iteratio
 
 ---
 
+<!-- @section:pgof_stages -->
 # SECTION 3: PGOF Stages & Gates
 
 ### Stage 0: Intake and Concept
@@ -97,6 +105,7 @@ The PGOF allows for iterative gating - projects may appear for multiple iteratio
 
 ---
 
+<!-- @section:change_management -->
 # SECTION 4: Change Management (PCR)
 
 ### When is a PCR Required?
@@ -121,6 +130,7 @@ If changes >= 10% to scope, schedule, cost, or benefits:
 
 ---
 
+<!-- @section:task_management -->
 # SECTION 5: Task Management Policies
 
 ### Stale Task Policy
@@ -137,6 +147,7 @@ If a task's due date is past by **48+ hours**, label it as **[OVERDUE]** in bold
 
 ---
 
+<!-- @section:contractor_onboarding -->
 # SECTION 6: Contractor Onboarding
 
 1. **Obtain signed NDA and SOW**
@@ -146,6 +157,7 @@ If a task's due date is past by **48+ hours**, label it as **[OVERDUE]** in bold
 
 ---
 
+<!-- @section:pause_cancel -->
 # SECTION 7: Pause and Cancel
 
 ### Pause Process
@@ -163,6 +175,7 @@ If a task's due date is past by **48+ hours**, label it as **[OVERDUE]** in bold
 
 ---
 
+<!-- @section:financial_tools -->
 # SECTION 8: Financial Tools
 
 | Tool | Purpose |
@@ -177,6 +190,7 @@ If a task's due date is past by **48+ hours**, label it as **[OVERDUE]** in bold
 
 ---
 
+<!-- @section:pcra_treasury -->
 # SECTION 9: PCRA and Treasury Board
 
 - **PCRA:** Required for projects > $2.5M at Gate 2
@@ -188,6 +202,7 @@ If a task's due date is past by **48+ hours**, label it as **[OVERDUE]** in bold
 
 ---
 
+<!-- @section:project_types -->
 # SECTION 10: Customer-Led vs SSC-Led Projects
 
 ### SSC-Led
@@ -205,6 +220,7 @@ If a task's due date is past by **48+ hours**, label it as **[OVERDUE]** in bold
 
 ---
 
+<!-- @section:risk_escalation -->
 # SECTION 11: Risk Escalation
 
 Any risk with **High Impact + High Probability**:
@@ -218,6 +234,7 @@ Any risk with **High Impact + High Probability**:
 
 ---
 
+<!-- @section:governance_boards -->
 # SECTION 12: Governance Boards
 
 | Board | Gates | Decision |
@@ -234,6 +251,7 @@ Any risk with **High Impact + High Probability**:
 
 ---
 
+<!-- @section:enabling_functions -->
 # SECTION 13: Enabling Functions (Contact Information)
 
 | Function | Contact |
@@ -254,6 +272,7 @@ Any risk with **High Impact + High Probability**:
 
 ---
 
+<!-- @section:vendor_policies -->
 # SECTION 14: Vendor/Email Policies
 
 ### Vendor Triage Keywords
@@ -276,6 +295,7 @@ Never output full email bodies. Extract to **maximum 3 bullet points** per vendo
 
 ---
 
+<!-- @section:socio_economic -->
 # SECTION 15: Socio-Economic Priorities
 
 ### GBA Plus (Gender-based Analysis Plus)
@@ -293,6 +313,7 @@ Consider:
 
 ---
 
+<!-- @section:lessons_learned -->
 # SECTION 16: Lessons Learned
 
 - Document lessons learned at each stage in EPS
